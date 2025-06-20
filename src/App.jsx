@@ -1,10 +1,16 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import SignIn from "./components/SignIn"
 
-function App() {
+const App = () => {
 
   return (
-    <>
-     <h1 className='text-blue-800'>Test</h1>
-    </>
+      <Router>
+        <Routes>
+          <Route path='/' element={<h1>This the main page</h1>} />
+          <Route path = '/sign-in' element={<SignIn />} />
+            
+        </Routes>
+        </Router>
   )
 }
 
