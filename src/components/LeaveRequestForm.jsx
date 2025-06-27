@@ -1,173 +1,103 @@
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+
 const LeaveRequestForm = () => {
-    return (
-        <>
-        <h3 className="text-center text-3xl mt-4">Leave request form</h3>
-        <div className="mt-5" >
-            <form className='max-w-md mx-auto'>
-                <div className='grid md:grid-cols-2 md:gap-6'>
-                    <div className='relative z-0 w-full mb-5 group'>
-                        <input
-                            type='text'
-                            name='floating_first_name'
-                            id='floating_first_name'
-                            className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                            placeholder=' '
-                            required
-                        />
-                        <label
-                            htmlFor='floating_first_name'
-                            className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                        >
-                            First name
-                        </label>
-                    </div>
-                    <div className='relative z-0 w-full mb-5 group'>
-                        <input
-                            type='text'
-                            name='floating_last_name'
-                            id='floating_last_name'
-                            className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                            placeholder=' '
-                            required
-                        />
-                        <label
-                            htmlFor='floating_last_name'
-                            className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                        >
-                            Last name
-                        </label>
-                    </div>
-                </div>
-                <div className='grid md:grid-cols-2 md:gap-6'>
-                    <div className='relative z-0 w-full mb-5 group'>
-                        <input
-                            type='tel'
-                            pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                            name='floating_phone'
-                            id='floating_phone'
-                            className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                            placeholder=' '
-                            required
-                        />
-                        <label
-                            htmlFor='floating_phone'
-                            className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                        >
-                            Phone number (123-456-7890)
-                        </label>
-                    </div>
-                </div>
-                <div className='relative z-0 w-full mb-5 group'>
-                    <input
-                        type='email'
-                        name='floating_email'
-                        id='floating_email'
-                        className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                        placeholder=' '
-                        required
-                    />
-                    <label
-                        htmlFor='floating_email'
-                        className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                    >
-                        Email address
-                    </label>
-                </div>
 
-                <div className='relative z-0 w-full mb-5 group'>
-                    <input
-                        type='text'
-                        name='floating_position'
-                        id='floating_position'
-                        className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                        placeholder=' '
-                        required
-                    />
-                    <label
-                        htmlFor='floating_position'
-                        className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                    >
-                        Position
-                    </label>
-                </div>
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-                <div className='mb-5'>
-                    <label
-                        htmlFor='typeOfLeave'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Type of Leave
-                    </label>
-                    <select
-                        id='typeOfLeave'
-                        name='typeOfLeave'
-                        className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-                        required
-                    >
-                        <option value=''>-- Select --</option>
-                        <option value='AnnualLeave'>Annual Leave</option>
-                        <option value='SickLeave'>Sick Leave</option>
-                        <option value='MaternityLeave'>Maternity Leave</option>
-                        {/* Add other types */}
-                    </select>
-                </div>
+    useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("user ", user);
+    if (user) {
+      setValue("firstName", user.firstName);
+      setValue("lastName", user.lastName);
+    }
+  }, [setValue]);
 
-                <div className='mb-5'>
-                    <label
-                        htmlFor='startDate'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Start Date
-                    </label>
-                    <input
-                        type='date'
-                        id='startDate'
-                        name='startDate'
-                        className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-                        required
-                    />
-                </div>
+  const onSubmit = data => {
+    console.log("Leave Request Submitted:", data);
+  };
 
-                <div className='mb-5'>
-                    <label
-                        htmlFor='endDate'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        End Date
-                    </label>
-                    <input
-                        type='date'
-                        id='endDate'
-                        name='endDate'
-                        className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-                        required
-                    />
-                </div>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto p-4 bg-white rounded shadow space-y-4">
+      <h2 className="text-xl font-semibold text-center">Leave Request Form</h2>
 
-                <div className='mb-5'>
-                    <label
-                        htmlFor='comment'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Reason (optional)
-                    </label>
-                    <textarea
-                        id='comment'
-                        name='comment'
-                        rows='3'
-                        className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-                    ></textarea>
-                </div>
+      {/* first name */}
+      <div>
+      <label className="block text-sm font-medium">First Name</label>
+      <input 
+      type="text"
+      {...register("firstName", {required: true})}
+      className="w-full mt-1 p-2 border rounded"
+      readOnly
+      />
+      {errors.firstName && <p className="text-red-500 text-sm">This field is required</p>}
+      </div>
 
-                <button
-                    type='submit'
-                    className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-                >
-                    Submit
-                </button>
-            </form>
-        </div>
-        </>
-    );
+      {/* last name */}
+      <div>
+      <label className="block text-sm font-medium">Last Name</label>
+      <input 
+      type="text"
+      {...register("lastName", {required: true})}
+      className="w-full mt-1 p-2 border rounded"
+      readOnly
+      />
+      {errors.lastName && <p className="text-red-500 text-sm">This field is required</p>}
+      </div>
+      
+      {/* Type of Leave */}
+      <div>
+        <label className="block text-sm font-medium">Type of Leave</label>
+        <select {...register("typeOfLeave", { required: true })} className="w-full mt-1 p-2 border rounded">
+          <option value="">Select...</option>
+          <option value="AnnualLeave">Annual Leave</option>
+          <option value="SickLeave">Sick Leave</option>
+          <option value="MaternityLeave">Maternity Leave</option>
+          <option value="PaternityLeave">Paternity Leave</option>
+          <option value="ParentalLeave">Parental Leave</option>
+          <option value="BereavementLeave">Bereavement Leave</option>
+          <option value="MariageLeave">Marriage Leave</option>
+          <option value="EmergencyLeave">Emergency Leave</option>
+        </select>
+        {errors.typeOfLeave && <p className="text-red-500 text-sm">This field is required</p>}
+      </div>
+
+      {/* Start Date */}
+      <div>
+        <label className="block text-sm font-medium">Start Date</label>
+        <input
+          type="date"
+          {...register("startDate", { required: true })}
+          className="w-full mt-1 p-2 border rounded"
+        />
+        {errors.startDate && <p className="text-red-500 text-sm">This field is required</p>}
+      </div>
+
+      {/* End Date */}
+      <div>
+        <label className="block text-sm font-medium">End Date</label>
+        <input
+          type="date"
+          {...register("endDate", { required: true })}
+          className="w-full mt-1 p-2 border rounded"
+        />
+        {errors.endDate && <p className="text-red-500 text-sm">This field is required</p>}
+      </div>
+
+      <button
+        type="submit"
+        className="w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-500"
+      >
+        Submit Request
+      </button>
+    </form>
+  );
 };
+
 export default LeaveRequestForm;

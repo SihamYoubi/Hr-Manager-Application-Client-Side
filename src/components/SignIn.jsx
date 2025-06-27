@@ -1,16 +1,28 @@
 import { useState } from "react"
 import { login } from '../services/AuthService';
+import { useNavigate } from "react-router-dom";
+import {jwtDecode} from 'jwt-decode';
 
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  
 
-    const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e) => {
      e.preventDefault();
     try {
       const data = await login(email, password);
+      const token = data.token
       alert("Login successful!");
+      localStorage.setItem("token",token);
+        // Decode and store user info
+      const decoded = jwtDecode(token);
+      localStorage.setItem("user", JSON.stringify(decoded));
+      navigate("/leave-request");
+
       // Redirect user if needed
     } catch (err) {
       alert("Invalid credentials.");
