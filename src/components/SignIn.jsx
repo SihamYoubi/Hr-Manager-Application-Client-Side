@@ -21,7 +21,7 @@ export default function SignIn() {
         // Decode and store user info
       const decoded = jwtDecode(token);
       localStorage.setItem("user", JSON.stringify(decoded));
-      navigate("/leave-request");
+      navigate("/employee");
 
       // Redirect user if needed
     } catch (err) {
